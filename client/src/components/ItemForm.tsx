@@ -7,10 +7,13 @@ const ItemForm = () => {
 
   const createItem = async () => {
     try {
-      await axios.post("http://localhost:5000/api/items", {
-        name,
-        quantity,
-      });
+      await axios.post(
+        "https://item-management-vercel-deploy-server.vercel.app/items",
+        {
+          name,
+          quantity,
+        }
+      );
     } catch (error) {
       console.error("Fail to create item.", error);
     }
