@@ -15,6 +15,7 @@ const ItemForm = () => {
           quantity,
         }
       );
+      alert("Item created!");
     } catch (error) {
       console.error("Fail to create item.", error);
     }
