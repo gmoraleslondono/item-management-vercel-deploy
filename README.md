@@ -6,7 +6,7 @@ This project is a full-stack application for managing items, built with a React 
 
 ## Project Structure
 
-Coming soon...
+Coming soon ...
 
 ## Getting Started
 
