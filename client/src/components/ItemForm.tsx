@@ -9,6 +9,7 @@ const ItemForm = () => {
     try {
       await axios.post(
         "https://item-management-vercel-deploy-server-m4z2s861q.vercel.app/items",
+        // "http://localhost:5000/items",
         {
           name,
           quantity,

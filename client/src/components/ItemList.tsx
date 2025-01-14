@@ -14,6 +14,7 @@ const ItemList = () => {
     try {
       const response = await axios.get(
         "https://item-management-vercel-deploy-server-m4z2s861q.vercel.app/items"
+        // "http://localhost:5000/items"
       );
       setItems(response.data);
     } catch (error) {
@@ -25,6 +26,7 @@ const ItemList = () => {
     try {
       const response = await axios.delete(
         `https://item-management-vercel-deploy-server-m4z2s861q.vercel.app/items/${id}`
+        // `http://localhost:5000/items/${id}`
       );
       console.log(response.data);
       fetchItems();
