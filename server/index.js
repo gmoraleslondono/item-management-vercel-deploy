@@ -1,13 +1,20 @@
 import express from "express";
 import mongoose from "mongoose";
-import dotenv, { config } from "dotenv";
+import dotenv from "dotenv";
 import cors from "cors";
 import router from "./src/routes/itemRoutes.js";
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+// Configure CORS to allow requests from your client origin
+const corsOptions = {
+  origin: "https://item-management-vercel-deploy-client.vercel.app",
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(router);
 
@@ -17,7 +24,7 @@ mongoose
     console.log("Connected to MongoDB");
   })
   .catch((err) => {
-    console.log("Couldn't connected to MongoDB", err);
+    console.log("Couldn't connect to MongoDB", err);
   });
 
 const PORT = process.env.PORT || 5000;
