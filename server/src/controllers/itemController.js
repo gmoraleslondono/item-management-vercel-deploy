@@ -3,9 +3,11 @@ import Item from "../models/itemModel.js";
 // `GET` to read all items from the database.
 export const getAllItems = async (req, res) => {
   try {
+    console.log("Fetching all items...");
     const items = await Item.find();
     res.json(items);
   } catch (error) {
+    console.error("Error fetching items:", error);
     res.status(500).send(error.message);
   }
 };
