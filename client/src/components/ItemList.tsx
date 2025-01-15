@@ -10,6 +10,10 @@ interface Item {
 const ItemList = () => {
   const [items, setItems] = useState<Item[]>([]);
 
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
   const fetchItems = async () => {
     try {
       const response = await axios.get(
@@ -34,10 +38,6 @@ const ItemList = () => {
       console.error("Fail to delete item.", error);
     }
   };
-
-  useEffect(() => {
-    fetchItems();
-  }, []);
 
   return (
     <div>
