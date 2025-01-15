@@ -1,88 +1,85 @@
 import Item from "../models/itemModel.js";
 
-// `GET` to read all items from the database.
 export const getAllItems = async (req, res) => {
   try {
-    console.log("Fetching all items...");
     const items = await Item.find();
     res.json(items);
   } catch (error) {
-    console.error("Error fetching items:", error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      error: "Failed to get items",
+    });
   }
 };
 
-// filter items by name
-export const getItemByName = async (req, res) => {
+export const getItemsByName = async (req, res) => {
   try {
-    // const { name } = req.query;
-    // const items = await Item.find({ name });
-    const filteredItems = await Item.find({ name: "Banana" });
+    const filteredItems = await Item.find({ name: "banana" });
     res.json(filteredItems);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({
+      error: "Failed to filter items",
+    });
   }
 };
-
-// filter items by quantity greater than 5
-export const getItemByQuantity = async (req, res) => {
+export const getItemsByQuantity = async (req, res) => {
   try {
-    const filteredItems = await Item.find({ quantity: { $gt: 5 } }); // greater than 5
-    res.json(filteredItems);
+    const items = await Item.find({ quantity: { $gt: 5 } });
+    res.json(items);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({
+      error: "Failed to get items by quantity",
+    });
   }
 };
 
-// sort items by name
 export const getSortedItems = async (req, res) => {
   try {
-    const sortedItems = await Item.find().sort({ name: 1 }); //in ascending order
-    res.json(sortedItems);
+    const items = await Item.find().sort({ name: 1 });
+    res.json(items);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({
+      error: "Failed to sort items",
+    });
   }
 };
 
-// count the number of items in each category in the database
 export const getGroupedItems = async (req, res) => {
   try {
     const groupedItems = await Item.aggregate([
-      {
-        $group: {
-          _id: "$name",
-          totalQuantity: { $sum: "$quantity" },
-        },
-      },
+      { $group: { _id: "$name", totalQuantity: { $sum: "$quantity" } } },
     ]);
     res.json(groupedItems);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({
+      error: "Failed to group items",
+    });
   }
 };
 
-// count all items in the database
-export const getItemsCount = async (req, res) => {
+export const getItemCount = async (req, res) => {
   try {
     const count = await Item.countDocuments();
-    res.json({ totalItems: count });
+    res.json({ totalitems: count });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({
+      error: "Failed to count items",
+    });
   }
 };
 
-// `POST` to add a new item to the database.
 export const createItem = async (req, res) => {
   try {
+    console.log(req.body);
     const newItem = new Item(req.body);
     await newItem.save();
     res.json(newItem);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({
+      error: "Failed to post items",
+    });
   }
 };
 
-// patch a quantity item by its ID
 export const patchItemById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -92,11 +89,12 @@ export const patchItemById = async (req, res) => {
     );
     res.json(updatedItem);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({
+      error: "Failed to update item",
+    });
   }
 };
 
-// `PUT` to update an existing item by its ID.
 export const updateItemById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -105,35 +103,39 @@ export const updateItemById = async (req, res) => {
       new: true,
     });
     if (!updatedItem) {
-      res.status(404).send("Item not found");
+      return res.status(404).json({ error: "item not found" });
     }
     res.json(updatedItem);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({
+      error: "Failed to update items",
+    });
   }
 };
 
-//`DELETE` to remove an item by its ID.
+export const deleteManyItems = async (req, res) => {
+  try {
+    const result = await Item.deleteMany({ quantity: { $lt: 5 } });
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: "Failed to delete items",
+    });
+  }
+};
+
 export const deleteItemById = async (req, res) => {
   try {
     const { id } = req.params;
     const deletedItem = await Item.findByIdAndDelete(id);
     if (!deletedItem) {
-      res.status(404).send("Item not found");
+      return res.status(404).json({ error: "Item not found" });
     }
-    res.json({ message: "Item deleted successfully", item: deletedItem });
+    res.json({ message: "Item deleted", item: deletedItem });
   } catch (error) {
-    res.status(500).send(error.message);
-  }
-};
-
-// Delete many items
-export const deleteManyItems = async (req, res) => {
-  try {
-    const deletedItems = await Item.deleteMany({ quantity: { $lt: 5 } });
-    res.json({ message: "Items deleted successfully", items: deletedItems });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error deleting items" });
+    res.status(500).json({
+      error: "Failed to delete items",
+    });
   }
 };

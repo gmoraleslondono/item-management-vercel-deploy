@@ -2,30 +2,29 @@ import express from "express";
 
 import {
   getAllItems,
-  getItemByName,
-  getItemByQuantity,
+  getItemsByName,
+  getItemsByQuantity,
   getSortedItems,
   getGroupedItems,
-  getItemsCount,
+  getItemCount,
   createItem,
   patchItemById,
   updateItemById,
-  deleteItemById,
   deleteManyItems,
+  deleteItemById,
 } from "../controllers/itemController.js";
 
 const router = express.Router();
-
 router.get("/items", getAllItems);
-router.get("/items/name", getItemByName);
-router.get("/items/quantity", getItemByQuantity);
+router.get("/items/names", getItemsByName);
+router.get("/items/quantity", getItemsByQuantity);
 router.get("/items/sorted", getSortedItems);
 router.get("/items/grouped", getGroupedItems);
-router.get("/items/count", getItemsCount);
+router.get("/items/count", getItemCount);
 router.post("/items", createItem);
 router.patch("/items/:id", patchItemById);
 router.put("/items/:id", updateItemById);
+router.delete("/items/deletemany", deleteManyItems);
 router.delete("/items/:id", deleteItemById);
-router.delete("/items/deleteMany", deleteManyItems);
 
 export default router;

@@ -28,7 +28,7 @@ const clientOptions = {
 mongoose
   .connect(process.env.MONGODB_URI, clientOptions)
   .then(() => {
-    mongoose.connection.db.admin().command({ ping: 1 });
+    // mongoose.connection.db.admin().command({ ping: 1 });
     console.log("Connected to MongoDB");
   })
   .catch((err) => {
