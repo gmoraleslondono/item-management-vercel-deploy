@@ -22,35 +22,37 @@ const ItemForm = () => {
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        createItem();
-      }}
-    >
+    <div>
       <h2>Add item</h2>
-      <label htmlFor="name">
-        Name:
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </label>
-      <label htmlFor="quantity">
-        Quantity:
-        <input
-          type="number"
-          id="quantity"
-          value={quantity}
-          onChange={(e) => setQuantity(parseInt(e.target.value))}
-          required
-        />
-      </label>
-      <button type="submit">Add</button>
-    </form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          createItem();
+        }}
+      >
+        <label htmlFor="name">
+          Name:
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </label>
+        <label htmlFor="quantity">
+          Quantity:
+          <input
+            type="number"
+            id="quantity"
+            value={quantity}
+            onChange={(e) => setQuantity(parseInt(e.target.value))}
+            required
+          />
+        </label>
+        <button type="submit">Add</button>
+      </form>
+    </div>
   );
 };
 
