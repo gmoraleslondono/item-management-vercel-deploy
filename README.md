@@ -2,12 +2,6 @@
 
 This project is a full-stack application for managing items, built with a React frontend and an Express/MongoDB backend. The application is deployed on Vercel.
 
-<!-- https://www.youtube.com/watch?v=QXXY2Fyclp0 -->
-
-## Project Structure
-
-Coming soon ...
-
 ## Getting Started
 
 ### Prerequisites
@@ -27,10 +21,13 @@ cd item-management-vercel-deploy
 
 2. Install dependencies for both client and server:
 
+```
 cd client
 npm install
+
 cd ../server
 npm install
+```
 
 3. Set up environment variables:
 
@@ -57,7 +54,7 @@ cd client
 npm run dev
 ```
 
-The client will be available at http://localhost:3000 and the server at http://localhost:5000.
+The client will be available at http://localhost:5173 and the server at http://localhost:5000.
 
 ### API Endpoints
 
@@ -76,7 +73,17 @@ The client will be available at http://localhost:3000 and the server at http://l
 ### Deployment
 
 The application is deployed on Vercel. You can find the deployment configuration in the vercel.json file in the server directory.
+It will deploy automatically after every commit/pull request to main.
+
+## Documentation
+
+- https://www.youtube.com/watch?v=QXXY2Fyclp0
+- https://www.mongodb.com/developer/products/atlas/how-to-connect-mongodb-atlas-to-vercel-using-the-new-integration/
 
 ## License
 
 This project is licensed under the MIT License.
+
+## Author
+
+Made with 🧡 by gmorales 👩‍💻
